@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoMart - Create Account</title>
+    <style>
+        /* Using your NeoMart Theme */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Inter', sans-serif;
+            background-color: #0b1220;
+            /* Dark background */
+            color: white;
+        }
+
+        .register-box {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .neomart-logo {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .neomart-logo span {
+            color: #c2a366;
+        }
+
+        /* Gold accent */
+
+        p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            padding-left: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 50px;
+            border: 1px solid #334155;
+            background: #0b1220;
+            color: white;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #c2a366;
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border-radius: 50px;
+            border: none;
+            background-color: #c2a366;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .footer-link {
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        .footer-link a {
+            color: #c2a366;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+        <h1 class="neomart-logo">Neo<span>Mart</span></h1>
+        <p>Join us and start shopping premium.</p>
+
+        <form onsubmit="handleRegister(event)">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input id="regName" type="text" placeholder="Enter your name" required>
+            </div>
+            <div class="input-group">
+                <label>Email Address</label>
+                <input id="regEmail" type="email" placeholder="name@example.com" required>
+            </div>
+            <div class="input-group">
+                <label>Create Password</label>
+                <input id="regPass" type="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="footer-link">
+            Already have an account? <a href="login.html">Sign In</a>
+        </div>
+    </div>
+
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault();
+            const full_name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPass').value;
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ full_name, email, password })
+            });
+
+            const data = await response.json();
+            alert(data.message);
+            if (data.success) window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+
+</html>
